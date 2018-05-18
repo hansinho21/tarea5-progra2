@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Reservation {
     private int ID;
-    private String idTable;
+    private Table table;
     private Date date;
     private String time;
     Client ciente = new Client();
@@ -21,9 +21,9 @@ public class Reservation {
     public Reservation() {
     }
 
-    public Reservation(int ID, String idTable, Date date, String time) {
+    public Reservation(int ID, Table table, Date date, String time) {
         this.ID = ID;
-        this.idTable = idTable;
+        this.table = table;
         this.date = date;
         this.time = time;
     }
@@ -36,12 +36,12 @@ public class Reservation {
         this.ID = ID;
     }
 
-    public String getIdTable() {
-        return idTable;
+    public Table getTable() {
+        return table;
     }
 
-    public void setIdTable(String idTable) {
-        this.idTable = idTable;
+    public void setIdTable(Table table) {
+        this.table = table;
     }
 
     public Date getDate() {
