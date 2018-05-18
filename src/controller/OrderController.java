@@ -75,7 +75,7 @@ public class OrderController implements Initializable {
 
     @FXML
     private void addOnAction(ActionEvent event) {
-        productList.add(new Product(textFieldProduct.getText(), "a", 1));|
+        productList.add(new Product(textFieldProduct.getText(), "a", 1));
     }
 
 }
