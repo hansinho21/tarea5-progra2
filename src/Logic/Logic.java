@@ -8,6 +8,7 @@ package Logic;
 import Domain.Cell;
 import Domain.Product;
 import java.io.IOException;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,8 +26,13 @@ import javafx.stage.Stage;
  */
 public class Logic {
     
+    private static ObservableList<Product> productList;
     
     public Logic(){
+        this.productList = FXCollections.observableArrayList();
+        if(productList.isEmpty()){
+            fillMenu();
+        }
     }
     
     public GridPane createGridPane(int rows, int columns, Cell[][] cell) {
@@ -72,6 +78,62 @@ public class Logic {
         
         window.setScene(tableViewScene);
         window.show();
+    }
+    
+    private void fillMenu(){
+        this.productList.add(new Product("Pollo", 10, 1));
+        this.productList.add(new Product("Arroz", 11, 1));
+        this.productList.add(new Product("Frijoles", 12, 1));
+        this.productList.add(new Product("Carne", 15, 1));
+        this.productList.add(new Product("Hamburguesa", 20, 1));
+        this.productList.add(new Product("Papas fritas", 8, 1));
+        this.productList.add(new Product("Fresco de naranja", 7, 1));
+        this.productList.add(new Product("Fresco de limón", 7, 1));
+        this.productList.add(new Product("Fresco de melón", 7, 1));
+    }
+    
+    public ArrayList<String> getNameOfProducts(){
+        ArrayList<String> auxList = new ArrayList<>();
+        for (int i = 0; i < this.productList.size(); i++) {
+            auxList.add(this.productList.get(i).getName());
+        }
+        return auxList;
+    }
+    
+    public Product searchProductByName(String name){
+        Product auxProduct = null;
+        for (int i = 0; i < this.productList.size(); i++) {
+            if(this.productList.get(i).getName().equals(name)){
+                auxProduct = this.productList.get(i);
+            }
+        }
+        return auxProduct;
+    }
+    
+    public double getProductPrice(String name){
+        for (int i = 0; i < this.productList.size(); i++) {
+            if(this.productList.get(i).getName().equals(name)){
+                return this.productList.get(i).getPrice();
+            }
+        }
+        return -1;
+    }
+    
+    public boolean isProduct(String name){
+        for (int i = 0; i < this.productList.size(); i++) {
+            if(this.productList.get(i).getName().equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public ObservableList<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(ObservableList<Product> productList) {
+        this.productList = productList;
     }
     
 }
