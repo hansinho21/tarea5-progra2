@@ -17,7 +17,10 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="idTable" prefHeight="47.0" prefWidth="138.0" style="-fx-border-color: black;" />
+            <Label fx:id="idTable" alignment="CENTER" prefHeight="47.0" prefWidth="138.0" style="-fx-border-color: black;">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></Label>
             <Button mnemonicParsing="false" text="Assign a table" />
             <Button mnemonicParsing="false" onAction="#reserveOnAction" text="Reserve a table" />
             <Button mnemonicParsing="false" onAction="#orderOnAction" text="Make order" />

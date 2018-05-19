@@ -31,7 +31,7 @@ public class RestaurantController implements Initializable {
     private int rows;
     private int columns;
     private GridPane gridPaneTables;
-    private static String tableSelected;
+    private static int idTableSelected;
     
     @FXML
     private AnchorPane anchorPaneTables;
@@ -46,6 +46,7 @@ public class RestaurantController implements Initializable {
         // TODO
         this.logic = new Logic();
         createGridPane();
+        x();
     }
 
     public void createGridPane() {
@@ -60,8 +61,16 @@ public class RestaurantController implements Initializable {
     }
     
     public void setTextIdTable(int id){
-        tableSelected = "Mesa #" + id;
-        idTable.setText(tableSelected);
+        idTableSelected = id;
+    }
+    
+    private void x(){
+        this.gridPaneTables.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                idTable.setText("Mesa #"+idTableSelected);
+            }
+        });
     }
 
     @FXML

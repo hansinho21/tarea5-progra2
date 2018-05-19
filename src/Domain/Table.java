@@ -14,12 +14,12 @@ public class Table {
     private int ID;
     private Order order;
     private String status;
+    
 
     public Table() {
     }
 
-    public Table(int ID, Order order, String status) {
-        this.ID = ID;
+    public Table(Order order, String status) {
         this.order = order;
         this.status = status;
     }

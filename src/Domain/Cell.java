@@ -25,6 +25,7 @@ public class Cell extends Pane {
     private String url;
     private Table table;
     private RestaurantController restaurantController;
+    private static int idTable;
 
     public Cell() {
         setStyle("-fx-border-color : black");
@@ -33,13 +34,15 @@ public class Cell extends Pane {
         this.url = "";
         this.table = new Table();
         this.restaurantController = new RestaurantController();
+        table.setID(++idTable);
+        this.getChildren().add(new ImageView("/Images/mesaGris.png"));
     }
 
     /**
      * Se ejecuta cuando se da click en una celda.
      */
     public void handleClick() {
-        this.restaurantController.setTextIdTable(1);
+        this.restaurantController.setTextIdTable(getTable().getID());
         System.out.println(getTable().getID());
     }
 
