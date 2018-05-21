@@ -34,7 +34,7 @@ public class ReservationsController implements Initializable {
     @FXML
     private DatePicker datePickerDate;
     @FXML
-    private ComboBox<?> comboBoxTime;
+    private ComboBox comboBoxTime;
 
     /**
      * Initializes the controller class.
@@ -43,7 +43,15 @@ public class ReservationsController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         logic = new Logic();
-    }    
+        fillComboBox();
+        comboBoxTime.setValue("Select an hour");
+        
+    }
+
+    private void fillComboBox(){
+        comboBoxTime.getItems().addAll("11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30", "15:00",
+                "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30", "19:00");
+    }
 
     @FXML
     private void backOnAction(ActionEvent event) throws IOException {

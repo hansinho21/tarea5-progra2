@@ -64,6 +64,10 @@ public class RestaurantController implements Initializable {
         idTableSelected = id;
     }
     
+    public int getIdTableSelected(){
+        return this.idTableSelected;
+    }
+    
     private void x(){
         this.gridPaneTables.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

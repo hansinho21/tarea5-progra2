@@ -36,6 +36,7 @@ public class OrderController implements Initializable {
     private double iva;
     private double total;
     private int quantity;
+    private RestaurantController restaurantController;
 
     @FXML
     private TableView tableViewOrder;
@@ -65,6 +66,7 @@ public class OrderController implements Initializable {
         logic = new Logic();
         productList = logic.getProductList();
         orderList = FXCollections.observableArrayList();
+        this.restaurantController = new RestaurantController();
         
         this.subtotal = this.iva = this.total = 0;
         this.quantity = 1;
@@ -121,6 +123,11 @@ public class OrderController implements Initializable {
     private void increaseQuantityOnAction(ActionEvent event) {
         this.quantity++;
         labelQuantity.setText(String.valueOf(this.quantity));
+    }
+
+    @FXML
+    private void confirmButtonOnAction(ActionEvent event) {
+        System.out.println(this.restaurantController.getIdTableSelected());
     }
 
 }

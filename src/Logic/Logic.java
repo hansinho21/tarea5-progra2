@@ -42,7 +42,7 @@ public class Logic {
                 cell[i][j] = new Cell();
                 cell[i][j].setRow(i);
                 cell[i][j].setColumn(j);
-//                cell[i][j].getTable().setID(++i);
+//                cell[i][j].setIdTable(++i);
                 newGridPane.add(cell[i][j], j, i);
             }
         }

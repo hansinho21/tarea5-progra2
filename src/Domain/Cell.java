@@ -34,8 +34,18 @@ public class Cell extends Pane {
         this.url = "";
         this.table = new Table();
         this.restaurantController = new RestaurantController();
-        table.setID(++idTable);
         this.getChildren().add(new ImageView("/Images/mesaGris.png"));
+        
+        updateIdTable();
+    }
+    
+    public void updateIdTable(){
+        if(idTable <=24){
+            this.table.setID(++idTable);
+        } else {
+            idTable = 1;
+            this.table.setID(idTable);
+        }
     }
 
     /**
