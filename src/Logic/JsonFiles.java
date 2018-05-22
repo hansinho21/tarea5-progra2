@@ -9,9 +9,10 @@ import Domain.RestaurantTables;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import jdk.nashorn.internal.parser.JSONParser;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -41,6 +42,23 @@ public class JsonFiles {
             System.out.println("Error: " + ex.toString());
         }
      
+    }
+    
+    public ArrayList readAgentJsonFile() throws Exception {
+        
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader("restaurantTables.json"));
+        JSONArray jsonArray = (JSONArray) obj;
+        ArrayList restaurantTablesArray = new ArrayList<>(); 
+        for (int i = 0; i <jsonArray.size(); i++) {
+            RestaurantTables restaurantTables = new RestaurantTables();
+            JSONObject tempJsonObject = (JSONObject) jsonArray.get(i);
+            restaurantTables.setId(Integer.parseInt(tempJsonObject.get("ID").toString()));
+            restaurantTables.setX(Integer.parseInt(tempJsonObject.get("X").toString()));
+            restaurantTables.setY(Integer.parseInt(tempJsonObject.get("Y").toString()));
+            restaurantTablesArray.add(restaurantTables);
+        }
+        return restaurantTablesArray;
     }
 
     
