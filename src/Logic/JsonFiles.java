@@ -98,7 +98,6 @@ public class JsonFiles {
            
             productsList.setName(tempJsonObject.get("Name").toString());
             productsList.setPrice(Integer.parseInt(tempJsonObject.get("Price").toString()));
-            productsList.setPrice(0);
             ProductsListArray.add(productsList);
         }
         

@@ -69,6 +69,10 @@ public class RestaurantController implements Initializable {
             createGridPane();
             x();
             this.buttonOrder.setDisable(true);
+
+            buttonOrder.setDisable(true);
+            buttonAssign.setDisable(true);
+            buttonReserve.setDisable(true);
         } catch (Exception ex) {
             Logger.getLogger(RestaurantController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -139,6 +143,11 @@ public class RestaurantController implements Initializable {
                     buttonOrder.setDisable(false);
                     buttonAssign.setDisable(true);
                     buttonReserve.setDisable(true);
+                } else if (cell[tableRow][tableColumn].getTable().getID() == idTableSelected
+                        && cell[tableRow][tableColumn].getTable().getStatus().equals(StateTable.RESERVADA)) {
+                    buttonOrder.setDisable(false);
+                    buttonAssign.setDisable(true);
+                    buttonReserve.setDisable(true);
                 }
             }
         });
@@ -146,14 +155,14 @@ public class RestaurantController implements Initializable {
 
     @FXML
     private void reserveOnAction(ActionEvent event) throws IOException {
-        
-            logic.changeScene(event, "/gui/Reservations.fxml");
-        
+
+        logic.changeScene(event, "/gui/Reservations.fxml");
+
     }
 
     @FXML
     private void orderOnAction(ActionEvent event) throws IOException {
-        if (this.cell[this.tableRow][this.tableColumn].getTable().getOrder() == null){
+        if (this.cell[this.tableRow][this.tableColumn].getTable().getOrder() == null) {
             logic.changeScene(event, "/gui/Order.fxml");
         } else {
             JOptionPane.showMessageDialog(null, "Esta mesa ya tiene una orden asignada");
@@ -196,7 +205,7 @@ public class RestaurantController implements Initializable {
     }
 
     public void setOrderTable(Order order) {
-        this.cell[this.tableRow][this.tableColumn].getTable().setOrder(order);
+        System.out.println(this.cell[this.tableRow][this.tableColumn].getTable().getID());
 
     }
 

@@ -65,6 +65,8 @@ public class OrderController implements Initializable {
     private Label labelQuantity;
     @FXML
     private Button buttonConfirm;
+    @FXML
+    private Button buttonBack;
 
     /**
      * Initializes the controller class.
@@ -88,8 +90,8 @@ public class OrderController implements Initializable {
     }
 
     private void calculatePrice(Product product) {
-        this.subtotal += product.getPrice() * this.quantity;
-        this.iva += (product.getPrice() * 10 / 100) * this.quantity;
+        this.subtotal += product.getPrice() ;
+        this.iva += (product.getPrice() * 10 / 100) ;
         this.total = this.subtotal + this.iva;
 
         jLabelSubtotal.setText(String.valueOf(this.subtotal));
@@ -99,15 +101,18 @@ public class OrderController implements Initializable {
 
     private void initialiceTableView() {
         tableColumnProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
-        tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<Product, String>("price"));
-        tableColumnPrice.setCellValueFactory(new PropertyValueFactory<Product, String>("quantity"));
+        tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<Product, String>("quantity"));
+        tableColumnPrice.setCellValueFactory(new PropertyValueFactory<Product, String>("price"));
 
         tableViewOrder.setItems(orderList);
     }
 
     @FXML
     private void backOnAction(ActionEvent event) throws IOException {
-        logic.changeScene(event, "/gui/Restaurant.fxml");
+        // get a handle to the stage
+        Stage stage = (Stage) buttonBack.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
     @FXML

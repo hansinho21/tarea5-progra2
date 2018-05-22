@@ -54,7 +54,7 @@
             <Insets left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <Button layoutX="303.0" layoutY="486.0" mnemonicParsing="false" onAction="#backOnAction" text="Back" />
+      <Button fx:id="buttonBack" layoutX="303.0" layoutY="486.0" mnemonicParsing="false" onAction="#backOnAction" text="Back" />
       <Button fx:id="buttonConfirm" layoutX="234.0" layoutY="486.0" mnemonicParsing="false" onAction="#confirmOnAction" text="Confirm" />
    </children>
 </AnchorPane>
