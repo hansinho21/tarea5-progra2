@@ -8,10 +8,14 @@ package controller;
 import Domain.Cell;
 import Domain.Order;
 import Domain.StateTable;
+import Logic.JsonFiles;
 import Logic.Logic;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -32,13 +36,15 @@ import javax.swing.JOptionPane;
 public class RestaurantController implements Initializable {
 
     private Logic logic;
-    private Cell[][] cell;
-    private int rows;
-    private int columns;
-    private GridPane gridPaneTables;
+    private JsonFiles jsonFiles;
+    private static Cell[][] cell;
+    private static int rows;
+    private static int columns;
+    private static GridPane gridPaneTables;
     private static int idTableSelected;
     private static int tableRow;
     private static int tableColumn;
+    private static int cont;
 
     @FXML
     private AnchorPane anchorPaneTables;
@@ -56,14 +62,19 @@ public class RestaurantController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        this.logic = new Logic();
-        createGridPane();
-        x();
-        this.buttonOrder.setDisable(true);
+        try {
+            // TODO
+            this.logic = new Logic();
+            this.jsonFiles = new JsonFiles();
+            createGridPane();
+            x();
+            this.buttonOrder.setDisable(true);
+        } catch (Exception ex) {
+            Logger.getLogger(RestaurantController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
-    public void createGridPane() {
+    public void createGridPane() throws Exception {
         this.rows = 5;
         this.columns = 5;
         this.cell = new Cell[this.rows][this.columns];
@@ -72,6 +83,35 @@ public class RestaurantController implements Initializable {
         this.gridPaneTables = this.logic.createGridPane(this.rows, this.columns, this.cell);
 
         this.anchorPaneTables = this.logic.addGridPaneToAnchorPane(this.anchorPaneTables, this.gridPaneTables);
+//        ArrayList document = jsonFiles.readRestaurantJsonFile();
+//        
+//        for (int i = 0; i < document.size(); i++) {
+//            System.out.println(document.get(i).toString());
+//        }
+//
+//        String id = document.get(1).toString();
+//        String x = document.get(2).toString();
+//        ArrayList y = (ArrayList) document.get(3);
+//
+//        this.anchorPaneTables.getChildren().clear();
+//        this.cell = new Cell[this.rows][this.columns];
+//
+//        //Crea el GridPane
+//        this.gridPaneTables = this.logic.createGridPane(this.rows, this.columns, this.cell);
+//
+//        //Añade el GridPane al AnchorPane
+//        this.anchorPaneTables = this.logic.addGridPaneToAnchorPane(this.anchorPaneTables, this.gridPaneTables);
+//
+//        int cont = 0;
+//        for (int i = 0; i < this.rows; i++) {
+//            for (int j = 0; j < this.columns; j++) {
+//                if (!url2.get(cont).equals("")) {
+//                    this.cell[i][j].getChildren().add(new ImageView(url2.get(cont).toString()));
+//                    this.cell[i][j].setUrl(url2.get(cont).toString());
+//                }
+//                cont++;
+//            }
+//        }
     }
 
     public void setIdTable(int id, int row, int column) {
@@ -106,12 +146,18 @@ public class RestaurantController implements Initializable {
 
     @FXML
     private void reserveOnAction(ActionEvent event) throws IOException {
-        logic.changeScene(event, "/gui/Reservations.fxml");
+        
+            logic.changeScene(event, "/gui/Reservations.fxml");
+        
     }
 
     @FXML
     private void orderOnAction(ActionEvent event) throws IOException {
-        logic.changeScene(event, "/gui/Order.fxml");
+        if (this.cell[this.tableRow][this.tableColumn].getTable().getOrder() == null){
+            logic.changeScene(event, "/gui/Order.fxml");
+        } else {
+            JOptionPane.showMessageDialog(null, "Esta mesa ya tiene una orden asignada");
+        }
     }
 
     @FXML
@@ -120,7 +166,7 @@ public class RestaurantController implements Initializable {
             this.cell[this.tableRow][this.tableColumn].setImageView(new ImageView("/Images/mesaRoja.png"));
             this.cell[this.tableRow][this.tableColumn].getTable().setStatus(StateTable.OCUPADA);
             this.idTable.setText("");
-        } else if(this.cell[this.tableRow][this.tableColumn].getTable().getOrder() != null){
+        } else if (this.cell[this.tableRow][this.tableColumn].getTable().getOrder() != null) {
             JOptionPane.showMessageDialog(null, "La mesa ya tiene una orden");
         }
     }
@@ -148,9 +194,10 @@ public class RestaurantController implements Initializable {
     public void setCell(Cell[][] cell) {
         this.cell = cell;
     }
-    
-    public void setOrderTable(Order order){
+
+    public void setOrderTable(Order order) {
         this.cell[this.tableRow][this.tableColumn].getTable().setOrder(order);
+
     }
 
 }

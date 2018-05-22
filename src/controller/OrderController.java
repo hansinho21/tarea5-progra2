@@ -8,20 +8,25 @@ package controller;
 import Domain.Cell;
 import Domain.Order;
 import Domain.Product;
+import Domain.ProductsList;
 import Logic.Logic;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
 /**
@@ -39,10 +44,6 @@ public class OrderController implements Initializable {
     private double total;
     private int quantity;
     private RestaurantController restaurantController;
-    private int idTableSelected;
-    private int rowTableSelected;
-    private int columnTableSelected;
-    private Cell[][] cell;
 
     @FXML
     private TableView tableViewOrder;
@@ -62,35 +63,35 @@ public class OrderController implements Initializable {
     private TableColumn tableColumnPrice;
     @FXML
     private Label labelQuantity;
+    @FXML
+    private Button buttonConfirm;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        logic = new Logic();
-        productList = logic.getProductList();
-        orderList = FXCollections.observableArrayList();
-        
-        this.restaurantController = new RestaurantController();
-        this.idTableSelected = restaurantController.getIdTableSelected();
-        this.rowTableSelected = restaurantController.getTableRow();
-        this.columnTableSelected = restaurantController.getTableColumn();
-        this.cell = restaurantController.getCell();
-        
-        this.subtotal = this.iva = this.total = 0;
-        this.quantity = 1;
-        
-        TextFields.bindAutoCompletion(textFieldProduct, logic.getNameOfProducts());
-        initialiceTableView();
+        try {
+            // TODO
+            logic = new Logic();
+            productList = logic.fillMenu();
+            orderList = FXCollections.observableArrayList();
+            
+            this.subtotal = this.iva = this.total = 0;
+            this.quantity = 1;
+            
+            TextFields.bindAutoCompletion(textFieldProduct, logic.getNameOfProducts());
+            initialiceTableView();
+        } catch (Exception ex) {
+            Logger.getLogger(OrderController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    private void calculatePrice(Product product){
-        this.subtotal +=  product.getPrice() * this.quantity;
+
+    private void calculatePrice(Product product) {
+        this.subtotal += product.getPrice() * this.quantity;
         this.iva += (product.getPrice() * 10 / 100) * this.quantity;
         this.total = this.subtotal + this.iva;
-        
+
         jLabelSubtotal.setText(String.valueOf(this.subtotal));
         jLabelIva.setText(String.valueOf(this.iva));
         jLabelTotal.setText(String.valueOf(this.total));
@@ -100,7 +101,7 @@ public class OrderController implements Initializable {
         tableColumnProduct.setCellValueFactory(new PropertyValueFactory<Product, String>("name"));
         tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<Product, String>("price"));
         tableColumnPrice.setCellValueFactory(new PropertyValueFactory<Product, String>("quantity"));
-        
+
         tableViewOrder.setItems(orderList);
     }
 
@@ -112,8 +113,8 @@ public class OrderController implements Initializable {
     @FXML
     private void addOnAction(ActionEvent event) {
         Product auxProduct = new Product(textFieldProduct.getText(), logic.getProductPrice(textFieldProduct.getText()), this.quantity);
-        auxProduct.setPrice(auxProduct.getPrice()*this.quantity);
-        if(logic.isProduct(textFieldProduct.getText())){
+        auxProduct.setPrice(auxProduct.getPrice() * this.quantity);
+        if (logic.isProduct(textFieldProduct.getText())) {
             orderList.add(auxProduct);
             calculatePrice(auxProduct);
         }
@@ -124,7 +125,7 @@ public class OrderController implements Initializable {
 
     @FXML
     private void reduceQuantityOnAction(ActionEvent event) {
-        if(this.quantity > 1){
+        if (this.quantity > 1) {
             this.quantity--;
             labelQuantity.setText(String.valueOf(this.quantity));
         }
@@ -140,7 +141,11 @@ public class OrderController implements Initializable {
     private void confirmButtonOnAction(ActionEvent event) throws IOException {
         Order newOrder = new Order(orderList, logic.getDate() + " " + logic.getHour());
         restaurantController.setOrderTable(newOrder);
-        this.logic.changeScene(event, "/gui/Restaurant.fxml");
+
+        // get a handle to the stage
+        Stage stage = (Stage) buttonConfirm.getScene().getWindow();
+        // do what you have to do
+        stage.close();
     }
 
 }

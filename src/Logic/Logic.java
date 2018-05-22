@@ -33,14 +33,11 @@ import javafx.stage.Stage;
  */
 public class Logic {
     
-    private static ObservableList<ProductsList> productList;
+    private static ObservableList<Product> productList;
     JsonFiles jsonFiles = new JsonFiles();
     
     public Logic() throws Exception{
         this.productList = FXCollections.observableArrayList();
-        if(productList.isEmpty()){
-            fillMenu();
-        }
     }
     
     public GridPane createGridPane(int rows, int columns, Cell[][] cell) {
@@ -88,15 +85,15 @@ public class Logic {
         stage.show();
     }
     
-    private void fillMenu() throws Exception{
+    public ObservableList<Product> fillMenu() throws Exception{
         for (int i = 0; i < jsonFiles.readProductsListJsonFile().size(); i++) {
             
-            ArrayList<ProductsList> productsListArray = jsonFiles.readProductsListJsonFile();
-            ProductsList tempProductsList = productsListArray.get(i);
+            ArrayList<Product> productsListArray = jsonFiles.readProductsListJsonFile();
+            Product tempProductsList = productsListArray.get(i);
             this.productList.add(tempProductsList);
         }
        
-       
+       return this.productList;
     }
     
     public ArrayList<String> getNameOfProducts(){
@@ -107,8 +104,8 @@ public class Logic {
         return auxList;
     }
     
-    public ProductsList searchProductByName(String name){
-        ProductsList auxProduct = null;
+    public Product searchProductByName(String name){
+        Product auxProduct = null;
         for (int i = 0; i < this.productList.size(); i++) {
             if(this.productList.get(i).getName().equals(name)){
                 auxProduct = this.productList.get(i);
@@ -135,11 +132,11 @@ public class Logic {
         return false;
     }
 
-    public ObservableList<ProductsList> getProductList() {
+    public ObservableList<Product> getProductList() {
         return productList;
     }
 
-    public void setProductList(ObservableList<ProductsList> productList) {
+    public void setProductList(ObservableList<Product> productList) {
         this.productList = productList;
     }
     

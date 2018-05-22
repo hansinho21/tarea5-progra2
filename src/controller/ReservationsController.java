@@ -13,6 +13,8 @@ import Logic.Logic;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -54,16 +56,20 @@ public class ReservationsController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        logic = new Logic();
-        fillComboBox();
-        comboBoxTime.setValue("Select an hour");
-        
-        this.restaurantController = new RestaurantController();
-        this.idTableSelected = restaurantController.getIdTableSelected();
-        this.rowTableSelected = restaurantController.getTableRow();
-        this.columnTableSelected = restaurantController.getTableColumn();
-        this.cell = restaurantController.getCell();
+        try {
+            // TODO
+            logic = new Logic();
+            fillComboBox();
+            comboBoxTime.setValue("Select an hour");
+            
+            this.restaurantController = new RestaurantController();
+            this.idTableSelected = restaurantController.getIdTableSelected();
+            this.rowTableSelected = restaurantController.getTableRow();
+            this.columnTableSelected = restaurantController.getTableColumn();
+            this.cell = restaurantController.getCell();
+        } catch (Exception ex) {
+            Logger.getLogger(ReservationsController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

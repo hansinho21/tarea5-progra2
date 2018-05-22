@@ -5,6 +5,7 @@
  */
 package Logic;
 
+import Domain.Product;
 import Domain.ProductsList;
 import Domain.RestaurantTables;
 import java.io.FileReader;
@@ -92,9 +93,9 @@ public class JsonFiles {
         JSONArray jsonArray = (JSONArray) obj;
         ArrayList ProductsListArray = new ArrayList<>(); 
         for (int i = 0; i <jsonArray.size(); i++) {
-            ProductsList productsList = new ProductsList();
+            Product productsList = new Product();
             JSONObject tempJsonObject = (JSONObject) jsonArray.get(i);
-            productsList.setId(Integer.parseInt(tempJsonObject.get("ID").toString()));
+            productsList.setId((String) tempJsonObject.get("ID"));
             productsList.setName(tempJsonObject.get("Name").toString());
             productsList.setPrice(Integer.parseInt(tempJsonObject.get("Price").toString()));
             ProductsListArray.add(productsList);
