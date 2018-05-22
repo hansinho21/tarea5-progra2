@@ -8,6 +8,7 @@ package controller;
 import Domain.Cell;
 import Domain.Order;
 import Domain.StateTable;
+import Domain.Table;
 import Logic.JsonFiles;
 import Logic.Logic;
 import java.io.IOException;
@@ -56,6 +57,8 @@ public class RestaurantController implements Initializable {
     private Button buttonAssign;
     @FXML
     private Button buttonReserve;
+    @FXML
+    private Button buttonCancel;
 
     /**
      * Initializes the controller class.
@@ -73,6 +76,7 @@ public class RestaurantController implements Initializable {
             buttonOrder.setDisable(true);
             buttonAssign.setDisable(true);
             buttonReserve.setDisable(true);
+            buttonCancel.setDisable(true);
         } catch (Exception ex) {
             Logger.getLogger(RestaurantController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,35 +91,6 @@ public class RestaurantController implements Initializable {
         this.gridPaneTables = this.logic.createGridPane(this.rows, this.columns, this.cell);
 
         this.anchorPaneTables = this.logic.addGridPaneToAnchorPane(this.anchorPaneTables, this.gridPaneTables);
-//        ArrayList document = jsonFiles.readRestaurantJsonFile();
-//        
-//        for (int i = 0; i < document.size(); i++) {
-//            System.out.println(document.get(i).toString());
-//        }
-//
-//        String id = document.get(1).toString();
-//        String x = document.get(2).toString();
-//        ArrayList y = (ArrayList) document.get(3);
-//
-//        this.anchorPaneTables.getChildren().clear();
-//        this.cell = new Cell[this.rows][this.columns];
-//
-//        //Crea el GridPane
-//        this.gridPaneTables = this.logic.createGridPane(this.rows, this.columns, this.cell);
-//
-//        //Añade el GridPane al AnchorPane
-//        this.anchorPaneTables = this.logic.addGridPaneToAnchorPane(this.anchorPaneTables, this.gridPaneTables);
-//
-//        int cont = 0;
-//        for (int i = 0; i < this.rows; i++) {
-//            for (int j = 0; j < this.columns; j++) {
-//                if (!url2.get(cont).equals("")) {
-//                    this.cell[i][j].getChildren().add(new ImageView(url2.get(cont).toString()));
-//                    this.cell[i][j].setUrl(url2.get(cont).toString());
-//                }
-//                cont++;
-//            }
-//        }
     }
 
     public void setIdTable(int id, int row, int column) {
@@ -136,16 +111,19 @@ public class RestaurantController implements Initializable {
                 if (cell[tableRow][tableColumn].getTable().getID() == idTableSelected
                         && cell[tableRow][tableColumn].getTable().getStatus().equals(StateTable.LIBRE)) {
                     buttonOrder.setDisable(true);
+                    buttonCancel.setDisable(true);
                     buttonAssign.setDisable(false);
                     buttonReserve.setDisable(false);
                 } else if (cell[tableRow][tableColumn].getTable().getID() == idTableSelected
                         && cell[tableRow][tableColumn].getTable().getStatus().equals(StateTable.OCUPADA)) {
                     buttonOrder.setDisable(false);
+                    buttonCancel.setDisable(true);
                     buttonAssign.setDisable(true);
                     buttonReserve.setDisable(true);
                 } else if (cell[tableRow][tableColumn].getTable().getID() == idTableSelected
                         && cell[tableRow][tableColumn].getTable().getStatus().equals(StateTable.RESERVADA)) {
                     buttonOrder.setDisable(false);
+                    buttonCancel.setDisable(false);
                     buttonAssign.setDisable(true);
                     buttonReserve.setDisable(true);
                 }
@@ -205,8 +183,19 @@ public class RestaurantController implements Initializable {
     }
 
     public void setOrderTable(Order order) {
-        System.out.println(this.cell[this.tableRow][this.tableColumn].getTable().getID());
+        this.cell[this.tableRow][this.tableColumn].getTable().setOrder(order);
 
+    }
+    
+    public Table getTableSelected(){
+        return this.cell[this.tableRow][this.tableColumn].getTable();
+    }
+
+    @FXML
+    private void cancelOnAction(ActionEvent event) {
+        cell[tableRow][tableColumn].getTable().setStatus(StateTable.LIBRE);
+        cell[tableRow][tableColumn].setImageView(new ImageView("/Images/mesaGris.png"));
+        this.buttonCancel.setDisable(true);
     }
 
 }

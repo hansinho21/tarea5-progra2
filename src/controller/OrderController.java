@@ -9,6 +9,7 @@ import Domain.Cell;
 import Domain.Order;
 import Domain.Product;
 import Domain.ProductsList;
+import Domain.StateTable;
 import Logic.Logic;
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +27,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -44,6 +46,11 @@ public class OrderController implements Initializable {
     private double total;
     private int quantity;
     private RestaurantController restaurantController;
+    private Cell[][] cell;
+    private int idTableSelected;
+    private int rowTableSelected;
+    private int columnTableSelected;
+    
 
     @FXML
     private TableView tableViewOrder;
@@ -78,6 +85,14 @@ public class OrderController implements Initializable {
             logic = new Logic();
             productList = logic.fillMenu();
             orderList = FXCollections.observableArrayList();
+            
+            this.restaurantController = new RestaurantController();
+            this.cell = restaurantController.getCell();
+            this.idTableSelected = restaurantController.getIdTableSelected();
+            this.rowTableSelected = restaurantController.getTableRow();
+            this.columnTableSelected = restaurantController.getTableColumn();
+            
+            this.buttonConfirm.setDisable(true);
             
             this.subtotal = this.iva = this.total = 0;
             this.quantity = 1;
@@ -122,6 +137,7 @@ public class OrderController implements Initializable {
         if (logic.isProduct(textFieldProduct.getText())) {
             orderList.add(auxProduct);
             calculatePrice(auxProduct);
+            this.buttonConfirm.setDisable(false);
         }
         textFieldProduct.setText("");
         this.quantity = 1;
@@ -147,6 +163,13 @@ public class OrderController implements Initializable {
         Order newOrder = new Order(orderList, logic.getDate() + " " + logic.getHour());
         restaurantController.setOrderTable(newOrder);
 
+        if(restaurantController.getTableSelected().getStatus().equals(StateTable.RESERVADA)){
+            this.cell[this.rowTableSelected][this.columnTableSelected].setImageView(new ImageView("/Images/mesaRoja.png"));
+            this.cell[this.rowTableSelected][this.columnTableSelected].getTable().setStatus(StateTable.OCUPADA);
+        }
+        
+        restaurantController.setCell(cell);
+        
         // get a handle to the stage
         Stage stage = (Stage) buttonConfirm.getScene().getWindow();
         // do what you have to do

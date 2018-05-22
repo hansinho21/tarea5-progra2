@@ -66,6 +66,8 @@ public class ReservationsController implements Initializable {
             logic = new Logic();
             fillComboBox();
             comboBoxTime.setValue("Select an hour");
+            
+            this.datePickerDate.setEditable(false);
 
             this.restaurantController = new RestaurantController();
             this.idTableSelected = restaurantController.getIdTableSelected();
