@@ -6,7 +6,11 @@
 package Logic;
 
 import Domain.Cell;
+import Domain.Order;
 import Domain.Product;
+import Domain.ProductsList;
+import Domain.StateTable;
+import Domain.Table;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -29,9 +33,10 @@ import javafx.stage.Stage;
  */
 public class Logic {
     
-    private static ObservableList<Product> productList;
+    private static ObservableList<ProductsList> productList;
+    JsonFiles jsonFiles = new JsonFiles();
     
-    public Logic(){
+    public Logic() throws Exception{
         this.productList = FXCollections.observableArrayList();
         if(productList.isEmpty()){
             fillMenu();
@@ -46,10 +51,12 @@ public class Logic {
                 cell[i][j].setRow(i);
                 cell[i][j].setColumn(j);
 //                cell[i][j].setIdTable(++i);
+               
                 newGridPane.add(cell[i][j], j, i);
             }
         }
         newGridPane.setStyle("-fx-cursor : hand");
+        
         return newGridPane;
     }
     
@@ -73,26 +80,23 @@ public class Logic {
      * @param destino
      * @throws IOException 
      */
-    public void changeScene(ActionEvent event, String destino) throws IOException{
-        Parent tableViewParent = FXMLLoader.load(getClass().getResource(destino));
-        Scene tableViewScene = new Scene(tableViewParent);
-        
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        
-        window.setScene(tableViewScene);
-        window.show();
+    public void changeScene(ActionEvent event, String destino) throws IOException {
+        Stage stage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource(destino));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
     
-    private void fillMenu(){
-        this.productList.add(new Product("Pollo", 10, 1));
-        this.productList.add(new Product("Arroz", 11, 1));
-        this.productList.add(new Product("Frijoles", 12, 1));
-        this.productList.add(new Product("Carne", 15, 1));
-        this.productList.add(new Product("Hamburguesa", 20, 1));
-        this.productList.add(new Product("Papas fritas", 8, 1));
-        this.productList.add(new Product("Fresco de naranja", 7, 1));
-        this.productList.add(new Product("Fresco de limón", 7, 1));
-        this.productList.add(new Product("Fresco de melón", 7, 1));
+    private void fillMenu() throws Exception{
+        for (int i = 0; i < jsonFiles.readProductsListJsonFile().size(); i++) {
+            
+            ArrayList<ProductsList> productsListArray = jsonFiles.readProductsListJsonFile();
+            ProductsList tempProductsList = productsListArray.get(i);
+            this.productList.add(tempProductsList);
+        }
+       
+       
     }
     
     public ArrayList<String> getNameOfProducts(){
@@ -103,8 +107,8 @@ public class Logic {
         return auxList;
     }
     
-    public Product searchProductByName(String name){
-        Product auxProduct = null;
+    public ProductsList searchProductByName(String name){
+        ProductsList auxProduct = null;
         for (int i = 0; i < this.productList.size(); i++) {
             if(this.productList.get(i).getName().equals(name)){
                 auxProduct = this.productList.get(i);
@@ -131,11 +135,11 @@ public class Logic {
         return false;
     }
 
-    public ObservableList<Product> getProductList() {
+    public ObservableList<ProductsList> getProductList() {
         return productList;
     }
 
-    public void setProductList(ObservableList<Product> productList) {
+    public void setProductList(ObservableList<ProductsList> productList) {
         this.productList = productList;
     }
     
@@ -150,5 +154,6 @@ public class Logic {
          String hour = String.valueOf(date.getHours());
          return hour;
      }
+    
     
 }
