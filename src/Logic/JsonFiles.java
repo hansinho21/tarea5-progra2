@@ -95,9 +95,10 @@ public class JsonFiles {
         for (int i = 0; i <jsonArray.size(); i++) {
             Product productsList = new Product();
             JSONObject tempJsonObject = (JSONObject) jsonArray.get(i);
-            productsList.setId((String) tempJsonObject.get("ID"));
+           
             productsList.setName(tempJsonObject.get("Name").toString());
             productsList.setPrice(Integer.parseInt(tempJsonObject.get("Price").toString()));
+            productsList.setPrice(0);
             ProductsListArray.add(productsList);
         }
         
