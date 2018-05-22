@@ -59,6 +59,8 @@ public class RestaurantController implements Initializable {
     private Button buttonReserve;
     @FXML
     private Button buttonCancel;
+    @FXML
+    private Label labelPrice;
 
     /**
      * Initializes the controller class.
@@ -120,6 +122,10 @@ public class RestaurantController implements Initializable {
                     buttonCancel.setDisable(true);
                     buttonAssign.setDisable(true);
                     buttonReserve.setDisable(true);
+                    if(cell[tableRow][tableColumn].getTable().getOrder() != null){
+                        labelPrice.setText(String.valueOf(cell[tableRow][tableColumn].getTable().getOrder().getPrice()));
+                    }
+                    
                 } else if (cell[tableRow][tableColumn].getTable().getID() == idTableSelected
                         && cell[tableRow][tableColumn].getTable().getStatus().equals(StateTable.RESERVADA)) {
                     buttonOrder.setDisable(false);

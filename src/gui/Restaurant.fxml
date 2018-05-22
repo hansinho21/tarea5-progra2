@@ -32,9 +32,14 @@
       </VBox>
       <AnchorPane layoutX="14.0" layoutY="335.0" prefHeight="200.0" prefWidth="264.0" style="-fx-border-color: black;">
          <children>
-            <Label layoutX="14.0" layoutY="14.0" text="Table order:">
+            <Label layoutX="14.0" layoutY="14.0" text="Price order:">
                <font>
                   <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelPrice" alignment="CENTER" layoutX="35.0" layoutY="58.0" prefHeight="39.0" prefWidth="174.0">
+               <font>
+                  <Font size="18.0" />
                </font>
             </Label>
          </children>

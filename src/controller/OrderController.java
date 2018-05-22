@@ -160,7 +160,7 @@ public class OrderController implements Initializable {
 
     @FXML
     private void confirmButtonOnAction(ActionEvent event) throws IOException {
-        Order newOrder = new Order(orderList, logic.getDate() + " " + logic.getHour());
+        Order newOrder = new Order(orderList, logic.getDate() + " " + logic.getHour(), this.total);
         restaurantController.setOrderTable(newOrder);
 
         if(restaurantController.getTableSelected().getStatus().equals(StateTable.RESERVADA)){

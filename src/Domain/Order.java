@@ -17,13 +17,15 @@ public class Order {
     private int ID;
     private ObservableList<Product> products;
     private String time;
+    private double price;
 
     public Order() {
     }
 
-    public Order(ObservableList<Product> list, String time) {
+    public Order(ObservableList<Product> list, String time, double price) {
         this.time = time;
         this.products = list;
+        this.price = price;
     }
 
 
@@ -49,6 +51,14 @@ public class Order {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
     
     
