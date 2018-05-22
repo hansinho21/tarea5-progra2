@@ -100,6 +100,7 @@ public class JsonFiles {
             productsList.setPrice(Integer.parseInt(tempJsonObject.get("Price").toString()));
             ProductsListArray.add(productsList);
         }
+        
         return ProductsListArray;
     }
 
