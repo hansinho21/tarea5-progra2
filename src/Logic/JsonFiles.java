@@ -5,6 +5,7 @@
  */
 package Logic;
 
+import Domain.ProductsList;
 import Domain.RestaurantTables;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -44,7 +45,7 @@ public class JsonFiles {
      
     }
     
-    public ArrayList readAgentJsonFile() throws Exception {
+    public ArrayList readRestaurantJsonFile() throws Exception {
         
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("restaurantTables.json"));
@@ -61,7 +62,46 @@ public class JsonFiles {
         return restaurantTablesArray;
     }
 
+     public void writeProductsListJsonFile(ArrayList<ProductsList> productsList) {
+        
+        JSONArray arrayProductsList = new JSONArray();
+        for (int i = 0; i < productsList.size(); i++) {
+            JSONObject tempObj = new JSONObject();
+            tempObj.put("ID",productsList.get(i).getId());
+            tempObj.put("Name",productsList.get(i).getName());
+            tempObj.put("Price",productsList.get(i).getPrice());
+           
+            arrayProductsList.add(tempObj);
+        }
+        
+        try {
+            FileWriter file = new FileWriter("productsList.json");
+            file.write(arrayProductsList.toJSONString());
+            file.flush();
+            file.close();
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.toString());
+        }
+     
+    }
     
+    public ArrayList readProductsListJsonFile() throws Exception {
+        
+        JSONParser parser = new JSONParser();
+        Object obj = parser.parse(new FileReader("productsList.json"));
+        JSONArray jsonArray = (JSONArray) obj;
+        ArrayList ProductsListArray = new ArrayList<>(); 
+        for (int i = 0; i <jsonArray.size(); i++) {
+            ProductsList productsList = new ProductsList();
+            JSONObject tempJsonObject = (JSONObject) jsonArray.get(i);
+            productsList.setId(Integer.parseInt(tempJsonObject.get("ID").toString()));
+            productsList.setName(tempJsonObject.get("Name").toString());
+            productsList.setPrice(Integer.parseInt(tempJsonObject.get("Price").toString()));
+            ProductsListArray.add(productsList);
+        }
+        return ProductsListArray;
+    }
+
      
     
 }
