@@ -1,0 +1,101 @@
+[{
+        "Price": 1000,
+        "ID": 0,
+        "Name": "Coca cola"
+    }, {
+        "Price": 1000,
+        "ID": 1,
+        "Name": "Fanta"
+    }, {
+        "Price": 800,
+        "ID": 2,
+        "Name": "Refresco natural"
+    }, {
+        "Price": 800,
+        "ID": 3,
+        "Name": "Café"
+    }, {
+        "Price": 800,
+        "ID": 4,
+        "Name": "Té"
+    }, {
+        "Price": 1000,
+        "ID": 5,
+        "Name": "Ensalada de lechuga"
+    }, {
+        "Price": 1000,
+        "ID": 6,
+        "Name": "Ensalada de caracolitos"
+    }, {
+        "Price": 1000,
+        "ID": 7,
+        "Name": "Puré de papa"
+    }, {
+        "Price": 2000,
+        "ID": 8,
+        "Name": "Sopa negra"
+    }, {
+        "Price": 2000,
+        "ID": 9,
+        "Name": "Sopa de Verduras"
+    }, {
+        "Price": 2500,
+        "ID": 10,
+        "Name": "Arroz con carne"
+    }, {
+        "Price": 2500,
+        "ID": 11,
+        "Name": "Arroz con pollo"
+    }, {
+        "Price": 4000,
+        "ID": 12,
+        "Name": "Chicharrones"
+    }, {
+        "Price": 3000,
+        "ID": 13,
+        "Name": "Pasta"
+    }, {
+        "Price": 5000,
+        "ID": 14,
+        "Name": "Pescado frito"
+    }, {
+        "Price": 2000,
+        "ID": 15,
+        "Name": "Hamburguesa con papas"
+    }, {
+        "Price": 1500,
+        "ID": 16,
+        "Name": "Papas fritas"
+    }, {
+        "Price": 2000,
+        "ID": 17,
+        "Name": "Nuggets de pollo"
+    }, {
+        "Price": 1500,
+        "ID": 18,
+        "Name": "Chalupa"
+    }, {
+        "Price": 2000,
+        "ID": 19,
+        "Name": "Pollo frito"
+    }, {
+        "Price": 1200,
+        "ID": 20,
+        "Name": "Pastel de chocolate"
+    }, {
+        "Price": 1500,
+        "ID": 21,
+        "Name": "Tres leches"
+    }, {
+        "Price": 2000,
+        "ID": 22,
+        "Name": "Helado"
+    }, {
+        "Price": 1500,
+        "ID": 23,
+        "Name": "Arroz con leche"
+    }, {
+        "Price": 2500,
+        "ID": 24,
+        "Name": "Postre de manzana"
+    }]
