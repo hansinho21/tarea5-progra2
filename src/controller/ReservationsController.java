@@ -83,7 +83,7 @@ public class ReservationsController implements Initializable {
         Reservation newReservation = new Reservation(newClient, new Table(), datePickerDate.getValue(), comboBoxTime.getValue().toString());
         this.cell[this.rowTableSelected][this.columnTableSelected].setImageView(new ImageView("/Images/mesaVerde.png"));
         this.restaurantController.setCell(cell);
-        logic.changeScene(event, "/gui/Restaurant.fxml");
+        logic.changeScene(event, "/gui/Restaurant.fxml");//
     }
     
 }
