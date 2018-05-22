@@ -5,6 +5,7 @@
  */
 package Domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -14,15 +15,15 @@ import java.util.Date;
 public class Reservation {
     private int ID;
     private Table table;
-    private Date date;
+    private LocalDate date;
     private String time;
     Client ciente = new Client();
     
     public Reservation() {
     }
 
-    public Reservation(int ID, Table table, Date date, String time) {
-        this.ID = ID;
+    public Reservation(Client client, Table table, LocalDate date, String time) {
+        this.ciente = client;
         this.table = table;
         this.date = date;
         this.time = time;
@@ -44,11 +45,11 @@ public class Reservation {
         this.table = table;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 

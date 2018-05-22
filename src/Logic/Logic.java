@@ -8,7 +8,10 @@ package Logic;
 import Domain.Cell;
 import Domain.Product;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -135,5 +138,17 @@ public class Logic {
     public void setProductList(ObservableList<Product> productList) {
         this.productList = productList;
     }
+    
+    public String getDate() {
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String formattedLocalDate = localDate.format(formatter);
+        return formattedLocalDate;
+    }
+     public String getHour(){
+         Date date = new Date();
+         String hour = String.valueOf(date.getHours());
+         return hour;
+     }
     
 }

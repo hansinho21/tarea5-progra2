@@ -13,13 +13,15 @@ public class Table {
     
     private int ID;
     private Order order;
-    private String status;
+    private StateTable status;
     
 
     public Table() {
+        this.status = StateTable.LIBRE;
+        this.order = null;
     }
 
-    public Table(Order order, String status) {
+    public Table(Order order, StateTable status) {
         this.order = order;
         this.status = status;
     }
@@ -40,11 +42,11 @@ public class Table {
         this.order = order;
     }
 
-    public String getStatus() {
+    public StateTable getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StateTable status) {
         this.status = status;
     }
 

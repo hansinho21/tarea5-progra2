@@ -21,9 +21,9 @@
                <font>
                   <Font name="System Bold" size="15.0" />
                </font></Label>
-            <Button mnemonicParsing="false" text="Assign a table" />
-            <Button mnemonicParsing="false" onAction="#reserveOnAction" text="Reserve a table" />
-            <Button mnemonicParsing="false" onAction="#orderOnAction" text="Make order" />
+            <Button fx:id="buttonAssign" mnemonicParsing="false" onAction="#assignATableOnAction" text="Assign a table" />
+            <Button fx:id="buttonReserve" mnemonicParsing="false" onAction="#reserveOnAction" text="Reserve a table" />
+            <Button fx:id="buttonOrder" mnemonicParsing="false" onAction="#orderOnAction" text="Make order" />
          </children>
          <padding>
             <Insets bottom="10.0" top="10.0" />

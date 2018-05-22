@@ -5,6 +5,8 @@
  */
 package controller;
 
+import Domain.Cell;
+import Domain.Order;
 import Domain.Product;
 import Logic.Logic;
 import java.io.IOException;
@@ -37,6 +39,10 @@ public class OrderController implements Initializable {
     private double total;
     private int quantity;
     private RestaurantController restaurantController;
+    private int idTableSelected;
+    private int rowTableSelected;
+    private int columnTableSelected;
+    private Cell[][] cell;
 
     @FXML
     private TableView tableViewOrder;
@@ -66,7 +72,12 @@ public class OrderController implements Initializable {
         logic = new Logic();
         productList = logic.getProductList();
         orderList = FXCollections.observableArrayList();
+        
         this.restaurantController = new RestaurantController();
+        this.idTableSelected = restaurantController.getIdTableSelected();
+        this.rowTableSelected = restaurantController.getTableRow();
+        this.columnTableSelected = restaurantController.getTableColumn();
+        this.cell = restaurantController.getCell();
         
         this.subtotal = this.iva = this.total = 0;
         this.quantity = 1;
@@ -126,8 +137,10 @@ public class OrderController implements Initializable {
     }
 
     @FXML
-    private void confirmButtonOnAction(ActionEvent event) {
-        System.out.println(this.restaurantController.getIdTableSelected());
+    private void confirmButtonOnAction(ActionEvent event) throws IOException {
+        Order newOrder = new Order(orderList, logic.getDate() + " " + logic.getHour());
+        restaurantController.setOrderTable(newOrder);
+        this.logic.changeScene(event, "/gui/Restaurant.fxml");
     }
 
 }

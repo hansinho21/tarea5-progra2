@@ -5,6 +5,10 @@
  */
 package controller;
 
+import Domain.Cell;
+import Domain.Client;
+import Domain.Reservation;
+import Domain.Table;
 import Logic.Logic;
 import java.io.IOException;
 import java.net.URL;
@@ -12,9 +16,11 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -24,6 +30,11 @@ import javafx.scene.control.TextField;
 public class ReservationsController implements Initializable {
 
     private Logic logic;
+    private RestaurantController restaurantController;
+    private int idTableSelected;
+    private int rowTableSelected;
+    private int columnTableSelected;
+    private Cell[][] cell;
     
     @FXML
     private TextField textFielName;
@@ -35,6 +46,8 @@ public class ReservationsController implements Initializable {
     private DatePicker datePickerDate;
     @FXML
     private ComboBox comboBoxTime;
+    @FXML
+    private Button buttonConfirm;
 
     /**
      * Initializes the controller class.
@@ -46,6 +59,12 @@ public class ReservationsController implements Initializable {
         fillComboBox();
         comboBoxTime.setValue("Select an hour");
         
+        this.restaurantController = new RestaurantController();
+        this.idTableSelected = restaurantController.getIdTableSelected();
+        this.rowTableSelected = restaurantController.getTableRow();
+        this.columnTableSelected = restaurantController.getTableColumn();
+        this.cell = restaurantController.getCell();
+        
     }
 
     private void fillComboBox(){
@@ -55,6 +74,15 @@ public class ReservationsController implements Initializable {
 
     @FXML
     private void backOnAction(ActionEvent event) throws IOException {
+        logic.changeScene(event, "/gui/Restaurant.fxml");
+    }
+
+    @FXML
+    private void confirmOnAction(ActionEvent event) throws IOException {
+        Client newClient = new Client(textFielName.getText(), textFieldEmail.getText(), textFieldCellphone.getText());
+        Reservation newReservation = new Reservation(newClient, new Table(), datePickerDate.getValue(), comboBoxTime.getValue().toString());
+        this.cell[this.rowTableSelected][this.columnTableSelected].setImageView(new ImageView("/Images/mesaVerde.png"));
+        this.restaurantController.setCell(cell);
         logic.changeScene(event, "/gui/Restaurant.fxml");
     }
     

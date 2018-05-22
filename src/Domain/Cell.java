@@ -52,7 +52,7 @@ public class Cell extends Pane {
      * Se ejecuta cuando se da click en una celda.
      */
     public void handleClick() {
-        this.restaurantController.setTextIdTable(getTable().getID());
+        this.restaurantController.setIdTable(getTable().getID(), this.row, this.column);
         System.out.println(getTable().getID());
     }
 
@@ -87,5 +87,23 @@ public class Cell extends Pane {
     public void setTable(Table table) {
         this.table = table;
     }
+    
+    public void setTableOrder(Order order){
+        this.table.setOrder(order);
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.getChildren().clear();
+        this.getChildren().add(imageView);
+    }
+
+    public static int getIdTable() {
+        return idTable;
+    }
+
+    public static void setIdTable(int idTable) {
+        Cell.idTable = idTable;
+    }
+    
 
 }

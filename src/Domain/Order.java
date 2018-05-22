@@ -6,6 +6,8 @@
 package Domain;
 
 import java.util.ArrayList;
+import java.util.Observable;
+import javafx.collections.ObservableList;
 
 /**
  *
@@ -13,16 +15,17 @@ import java.util.ArrayList;
  */
 public class Order {
     private int ID;
-    private ArrayList<Product> products = new ArrayList<>();
+    private ObservableList<Product> products;
     private String time;
 
     public Order() {
     }
 
-    public Order(int ID, String time) {
-        this.ID = ID;
+    public Order(ObservableList<Product> list, String time) {
         this.time = time;
+        this.products = list;
     }
+
 
     public int getID() {
         return ID;
@@ -32,11 +35,11 @@ public class Order {
         this.ID = ID;
     }
 
-    public ArrayList<Product> getProducts() {
+    public ObservableList<Product> getProducts() {
         return products;
     }
 
-    public void setProducts(ArrayList<Product> products) {
+    public void setProducts(ObservableList<Product> products) {
         this.products = products;
     }
 
